@@ -19,6 +19,12 @@
   "homepage": "https://github.com/Haru0101/gulp4-for-web#readme",
   "devDependencies": {
     "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0"
-  }
+  },
+  "browsers": [
+    "last 2 versions",
+    "ie >= 11"
+  ]
 }
