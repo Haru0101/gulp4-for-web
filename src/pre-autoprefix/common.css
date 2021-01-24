@@ -1,3 +1,5 @@
 body { font-size: 14px; padding: 0; margin: 0; }
 
 h1 { font-size: 30px; display: flex; justify-content: space-between; object-fit: cover; }
+
+h2 { display: flex; }

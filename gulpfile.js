@@ -18,7 +18,7 @@ gulp.task("watch-scss", function () {
         .on("error", sass.logError)
       )
       // コンパイル後のcssファイルの出力先  
-      .pipe(gulp.dest("src/pre-autoprefix"))
+      .pipe(gulp.dest("pre-autoprefix"))
     );
   });
 });
