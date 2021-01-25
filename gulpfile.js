@@ -7,9 +7,7 @@ const sass = require("gulp-sass");
 function watchScss () {
   // 監視するファイル  
   return gulp.watch("src/scss/common.scss", function () {
-    return (
-      gulp
-      .src("src/scss/common.scss")
+    return gulp.src("src/scss/common.scss")
       .pipe(
         sass({
           // 出力スタイルを指定
@@ -19,7 +17,6 @@ function watchScss () {
       )
       // コンパイル後のcssファイルの出力先  
       .pipe(gulp.dest("pre-autoprefix"))
-    );
   });
 };
 exports.watchScss = watchScss;
@@ -46,13 +43,11 @@ const babel = require("gulp-babel");
 
 function watchBabel () {
   return gulp.watch('src/es6/*.es6', function () {
-    return (
-      gulp.src('src/es6/*.es6')
+    return gulp.src('src/es6/*.es6')
       .pipe(babel({
         presets: ["@babel/preset-env"]
       }))
       .pipe(gulp.dest('src/js'))
-    )
   });
 };
 
@@ -65,7 +60,7 @@ const mozjpeg = require('imagemin-mozjpeg');
 const changed = require('gulp-changed');
 
 function watchImagemin () {
-  gulp.watch('src/img' + '/**/*', () => {
+  gulp.watch('src/img' + '/**/*', function () {
     // src/imgフォルダ以下にある画像ファイルを圧縮
     // 想定している拡張子は.png、.jpg、.gif
     return gulp.src('src/img' + '/**/*.{png,jpg,gif}')
@@ -99,4 +94,4 @@ function watchImagemin () {
 
 exports.watchImagemin = watchImagemin;
 
-exports.default = gulp.parallel('watchScss', 'watchAutoprefix', 'watchBabel', 'watchImagemin');
+exports.default = gulp.parallel(watchScss, watchAutoprefix, watchBabel, watchImagemin);
