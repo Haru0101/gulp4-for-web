@@ -4,7 +4,7 @@ const gulp = require("gulp");
 const sass = require("gulp-sass");
 
 // scssに変更があるたびにコンパイルを行う  
-gulp.task("watch-scss", function () {
+function watchScss () {
   // 監視するファイル  
   return gulp.watch("src/scss/common.scss", function () {
     return (
@@ -21,12 +21,13 @@ gulp.task("watch-scss", function () {
       .pipe(gulp.dest("pre-autoprefix"))
     );
   });
-});
+};
+exports.watchScss = watchScss;
 
 const postcss = require("gulp-postcss");
 const autoprefixer = require("autoprefixer");
 
-gulp.task("watch-autoprefix", function () {
+function watchAutoprefix () {
   return gulp.watch('src/pre-autoprefix/common.css', function () {
     return gulp.src("src/pre-autoprefix/common.css")
       .pipe(postcss([
@@ -36,12 +37,14 @@ gulp.task("watch-autoprefix", function () {
       ]))
       .pipe(gulp.dest("src/css"));
   });
-});
+};
+
+exports.watchAutoprefix = watchAutoprefix;
 
 
 const babel = require("gulp-babel");
 
-gulp.task('watch-babel', function () {
+function watchBabel () {
   return gulp.watch('src/es6/*.es6', function () {
     return (
       gulp.src('src/es6/*.es6')
@@ -51,16 +54,17 @@ gulp.task('watch-babel', function () {
       .pipe(gulp.dest('src/js'))
     )
   });
-});
+};
+
+exports.watchBabel = watchBabel;
 
 
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
 const mozjpeg = require('imagemin-mozjpeg');
 const changed = require('gulp-changed');
-const notify = require('gulp-notify');
 
-gulp.task('watch-imagemin', () => {
+function watchImagemin () {
   gulp.watch('src/img' + '/**/*', () => {
     // src/imgフォルダ以下にある画像ファイルを圧縮
     // 想定している拡張子は.png、.jpg、.gif
@@ -91,7 +95,8 @@ gulp.task('watch-imagemin', () => {
       // public/imgファイルに圧縮後の画像を保存
       .pipe(gulp.dest('public/img'))
   })
-});
+};
 
+exports.watchImagemin = watchImagemin;
 
-gulp.task('default', gulp.parallel('watch-scss', 'watch-autoprefix', 'watch-babel', 'watch-imagemin'));
+exports.default = gulp.parallel('watchScss', 'watchAutoprefix', 'watchBabel', 'watchImagemin');
